@@ -1,3 +1,5 @@
+Demo of pyXBMCt and more.
+
 at one point I was lost in the labyrinth of the different windows of the pyXBMCt library.
 there were 4 main classes: AddonDialogWindow, AddonFullWindow, BlankDialogWindow and BlankFullWindow to make my windows.
  At one point I no longer knew which one had a header, a title, a background, which is transparent or 
