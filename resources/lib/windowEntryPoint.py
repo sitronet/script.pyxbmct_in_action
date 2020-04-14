@@ -339,7 +339,7 @@ class FenetreOne(pyxbmct.AddonFullWindow):
                           pad_x= 4,
                           pad_y= 4
                           )
-        self.Information_textbox.setText('Try to press : \n' 'ContextMenu or Volume+ or Volume- keys from your remote to watch in action')
+        self.Information_textbox.setText('Try to press : \n' 'OK, Select, ContextMenu or Volume+ or Volume- keys from your remote to watch in action')
         self.Information_textbox.setVisible(True)
 
         self.placeControl(control= self.listMenu_Racine,
