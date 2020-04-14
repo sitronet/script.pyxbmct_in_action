@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<addon id="script.pyxbmct_in_action"
+	   name="Demo_pyxbmct, "
+	   version="0.0.001"
+	   provider-name="rondrach">
+
+	<requires>
+		<import addon="xbmc.addon" version="12.0.0"/>
+		<import addon="xbmc.python" version="2.25.0"/>
+		<import addon="script.module.requests" version="1.1.0"/>
+		<import addon="script.module.pyxbmct" version="1.3.1" />
+	</requires>
+
+	<extension point="xbmc.python.script" library="addon.py"/>
+
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">This script is just a demontration of the capabylities of pyxbmct librairy </summary>
+		<description lang="en">a basic script </description>
+		<language></language>
+		<source>https://github.com/sitronet/script.pyxbmct_in_action</source>
+		<platform>all</platform>
+		<assets>
+			<fanart>docs/fanart.jpg</fanart>
+
+        </assets>
+	</extension>
+</addon>
