@@ -2,23 +2,29 @@
 # -*- coding: utf-8 -*-
 
 '''
+Based on the pyXBMCt librairy see : https://github.com/romanvm/script.module.pyxbmct
 
+add two new class :  BackgroundDialogWindow and BackgroundFullWindow
+## Author: {'rondrach'}
+## Copyright: 'GPL-v2 , CECILL'
+## Credits: [{credit_list}]
+## License: {GPL-v2 , CECILL}
+## Version: 0.0.001
+## Mmaintainer: {maintainer}
+## Email: {contact_email}
+## Status: 'DEV'
 '''
 import os
-
 import xbmc
-import xbmcgui
 import xbmcaddon
+import xbmcgui
 import pyxbmct
 
 ADDON = xbmcaddon.Addon()
-ADDONID = ADDON.getAddonInfo('id')
-ADDONNAME = ADDON.getAddonInfo('name')
-ADDONVERSION = ADDON.getAddonInfo('version')
-ARTWORK = xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media'))
 
+#from pyxbmct.addonskin import Skin as skin
 
-class MySkin(pyxbmct.Skin):
+class GenericSkin(pyxbmct.Skin):
     '''
     original source is :
     @property
@@ -28,30 +34,22 @@ class MySkin(pyxbmct.Skin):
     @property
     def background_img(self):
         return os.path.join(self.images, 'AddonWindow', 'ContentPanel.png')
-    '''
+
 
     @property
     def background_img(self):
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_allegro.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_encore.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_harmony.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_nocturne.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media', 'pcp_quartet.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media', 'pcp_sonata.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media', 'pcp_symphony.png'))
-        return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media', 'pcp_vibrato.png'))
-        #return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media', 'fond-noir.jpg'))
+        return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media', 'pcp_nocturne.png'))
 
     @property
     def title_background_img(self):
-        return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_vibrato.png'))
+        return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_allegro.png'))
 
     @property
     def main_bg_img(self):
-        return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_vibrato.png'))
+        return xbmc.translatePath(os.path.join(ADDON.getAddonInfo('path'), 'resources', 'skins', 'Default', 'media','pcp_sonata.png'))
+    '''
 
-
-skin = MySkin()
+skin = GenericSkin()
 
 
 class AddonWindowWithoutTitle(pyxbmct.AbstractWindow):
@@ -196,10 +194,10 @@ class BackgroundFullWindow(AddonWindowWithoutTitle, xbmcgui.Window):
     """
     Same as AddonFullWindow(title='') without Title and title-bar
     Addon UI container with a solid background.
-    ``BackgroundFullWindow`` instance is displayed on top of the main background image --
-    ``self.main_bg`` -- and can hide behind a fullscreen video or music viaualisation.
+    BackgroundFullWindow`` instance is displayed on top of the main background image
+     and can hide behind a fullscreen video or music viaualisation.
     Minimal example::
-        addon = BackgroundFullWindow('My Cool Addon')
+        addon = BackgroundFullWindow()
         addon.setGeometry(400, 300, 4, 3)
         addon.doModal()
     """
@@ -207,18 +205,18 @@ class BackgroundFullWindow(AddonWindowWithoutTitle, xbmcgui.Window):
     def __new__(cls, *args, **kwargs):
         return super(BackgroundFullWindow, cls).__new__(cls, *args, **kwargs)
 
-        #def _setFrame(self):
+    def _setFrame(self):
         """
         Set the image for for the fullscreen background.
         """
         # type: (str) -> None
         # Image for the fullscreen background.
-        #self.main_bg_img = skin.main_bg_img
+        self.main_bg_img = skin.main_bg_img
         # Fullscreen background image control.
-        #self.main_bg = xbmcgui.ControlImage(1, 1, 1280, 720, self.main_bg_img)
-        #self.addControl(self.main_bg)
-        #super(BackgroundFullWindow, self)._setFrame()
-        #pass
+        self.main_bg = xbmcgui.ControlImage(1, 1, 1280, 720, self.main_bg_img)
+        self.addControl(self.main_bg)
+        super(BackgroundFullWindow, self)._setFrame()
+
 
     def setBackground(self, image=''):
         """
@@ -235,14 +233,14 @@ class BackgroundDialogWindow(AddonWindowWithoutTitle, xbmcgui.WindowDialog):
     """
     cpoy/paste of AddonDialogWindow(title='')
 
-    Addon UI container with a transparent background.
+    Addon UI container with a background.
 
     .. note:: ``AddonDialogWindow`` instance is displayed on top of XBMC UI,
         including fullscreen video and music visualization.
 
     Minimal example::
 
-        addon = AddonDialogWindow('My Cool Addon')
+        addon = BackgroundDialogWindow()
         addon.setGeometry(400, 300, 4, 3)
         addon.doModal()
     """
