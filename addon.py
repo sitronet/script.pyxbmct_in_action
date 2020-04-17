@@ -46,11 +46,8 @@ def translation(message_id, default=False):
 
 if __name__ == '__main__':
 
-    #fenetredesMenus = FrameMenu.fenetreMenu(translation(32001, 'Home'))
-    #fenetrePrincipale =  windowEntryPoint.FenetreOne('Welcome')
+    #fenetrePrincipale = WindowEntryPoint.FenetreOne(translation(32001, 'Home'))
     fenetrePrincipale =  windowEntryPoint.FenetreOne('Welcome - this is a test script of pyXBMCt')
-
     fenetrePrincipale.doModal()
-
     del fenetrePrincipale
 
