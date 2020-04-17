@@ -112,6 +112,7 @@ ACTION_VOLAMP_DOWN = 94
 ACTION_VOLAMP_UP = 93
 ACTION_VOLUME_DOWN = 89
 ACTION_VOLUME_UP = 88
+ACTION_SELECT_ITEM = 7
 
 
 class MyOriginalSkin(pyxbmct.Skin):
@@ -206,7 +207,7 @@ class FenetreOne(pyxbmct.AddonFullWindow):
             self.promptVolume()
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F one' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
     def connexionEvent(self):
@@ -287,7 +288,7 @@ class FenetreOne(pyxbmct.AddonFullWindow):
                                     'Fenetre 3 : BlankDialogWindow',
                                     'Fenetre 4 : BlankFullWindow',
                                     'Fenetre 5 : BackgroundDialogWindow (extended)',
-                                    'Fenetre 6 : BackgroundFullWindow (extended)'
+                                    'Fenetre 6 : BackgroundFullWindow (extended)',
                                     ]
         self.list_racine_label = pyxbmct.Label('Waiting Action...', textColor='0xFF808080')
         self.Information_textbox = pyxbmct.TextBox()
@@ -469,6 +470,32 @@ class Fenetre1(pyxbmct.AddonFullWindow):
         self.placeControl(self.labelSize, 10 , 4 , 1 , 12)
         self.labelSize.setLabel(str(self.screenx) + ' X ' + str(self.screeny) )
 
+        # test sur les listes
+        self.image_list_focus = self.image_dir + '/MenuItemFO.png'  # Drawing myself from an original pyXBMCt
+
+        self.listeTest = pyxbmct.List(buttonFocusTexture=self.image_list_focus, _itemHeight=30)
+        self.placeControl(control=self.listeTest,
+                          row=NEUF // 2,
+                          column=(SEIZE // 2),
+                          rowspan=20,
+                          columnspan=20)
+        self.listeTest.addItem('test1')
+        self.listeTest.addItem('test2')
+        self.listeTest.addItem('test3')
+
+        self.label_liste = pyxbmct.Label('')
+
+        self.setFocus(self.listeTest)
+        self.placeControl(self.label_liste, NEUF - 3, SEIZE // 2, 3, 20)
+        self.label_liste.setLabel('Wait')
+
+        self.connect(self.listeTest, self.nav_from_listeTest)
+
+    def nav_from_listeTest(self):
+        self.item = self.listeTest.getListItem(self.listeTest.getSelectedPosition()).getLabel()
+        xbmc.log('item : ' + self.item, xbmc.LOGNOTICE)
+        self.label_liste.setLabel(self.item)
+
     def quit(self):
         xbmc.log('quit asked - Exit Window .', xbmc.LOGNOTICE)
         line1 = " Do you want to exit this Window 1 ? "
@@ -505,7 +532,7 @@ class Fenetre1(pyxbmct.AddonFullWindow):
             self.promptVolume()
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F 1 ' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
     def promptVolume(self):
@@ -561,6 +588,32 @@ class Fenetre2(pyxbmct.AddonDialogWindow):
         self.placeControl(self.labelSize, 10, 4, 1, 12)
         self.labelSize.setLabel( str(self.screenx) + ' X ' + str(self.screeny) )
 
+        # test sur les listes
+        self.image_list_focus = self.image_dir + '/MenuItemFO.png'  # Drawing myself from an original pyXBMCt
+
+        self.listeTest = pyxbmct.List(buttonFocusTexture=self.image_list_focus, _itemHeight=30)
+        self.placeControl(control=self.listeTest,
+                          row=NEUF // 2,
+                          column=(SEIZE // 2),
+                          rowspan=20,
+                          columnspan=20)
+        self.listeTest.addItem('test1')
+        self.listeTest.addItem('test2')
+        self.listeTest.addItem('test3')
+
+        self.label_liste = pyxbmct.Label('')
+
+        self.setFocus(self.listeTest)
+        self.placeControl(self.label_liste, NEUF - 3, SEIZE // 2, 3, 20)
+        self.label_liste.setLabel('Wait')
+
+        self.connect(self.listeTest, self.nav_from_listeTest)
+
+    def nav_from_listeTest(self):
+        self.item = self.listeTest.getListItem(self.listeTest.getSelectedPosition()).getLabel()
+        xbmc.log('item : ' + self.item, xbmc.LOGNOTICE)
+        self.label_liste.setLabel(self.item)
+
     def quit(self):
         xbmc.log('quit asked - Exit Window .', xbmc.LOGNOTICE)
         line1 = " Do you want to exit this Window 2 ? "
@@ -597,7 +650,7 @@ class Fenetre2(pyxbmct.AddonDialogWindow):
             self.promptVolume()
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F 2 ' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
     def promptVolume(self):
@@ -653,6 +706,32 @@ class Fenetre3(pyxbmct.BlankDialogWindow):
         self.placeControl(self.labelSize, 10, 4, 1, 12)
         self.labelSize.setLabel( str(self.screenx) + ' X ' + str(self.screeny) )
 
+        # test sur les listes
+        self.image_list_focus = self.image_dir + '/MenuItemFO.png'        # Drawing myself from an original pyXBMCt
+
+        self.listeTest = pyxbmct.List(buttonFocusTexture=self.image_list_focus, _itemHeight=30)
+        self.placeControl(control=self.listeTest,
+                          row=NEUF // 2,
+                          column=(SEIZE // 2),
+                          rowspan=20,
+                          columnspan=20)
+        self.listeTest.addItem('test1')
+        self.listeTest.addItem('test2')
+        self.listeTest.addItem('test3')
+
+        self.label_liste = pyxbmct.Label('')
+
+        self.setFocus(self.listeTest)
+        self.placeControl(self.label_liste, NEUF - 3, SEIZE // 2, 3, 20)
+        self.label_liste.setLabel('Wait')
+
+        self.connect(self.listeTest, self.nav_from_listeTest)
+
+    def nav_from_listeTest(self):
+        self.item = self.listeTest.getListItem(self.listeTest.getSelectedPosition()).getLabel()
+        xbmc.log('item : ' + self.item, xbmc.LOGNOTICE)
+        self.label_liste.setLabel(self.item)
+
     def quit(self):
         xbmc.log('quit asked - Exit Window .', xbmc.LOGNOTICE)
         line1 = " Do you want to exit this Window 3 ? "
@@ -689,7 +768,7 @@ class Fenetre3(pyxbmct.BlankDialogWindow):
             self.promptVolume()
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F 3 ' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
 
@@ -746,6 +825,33 @@ class Fenetre4(pyxbmct.BlankFullWindow):
         self.placeControl(self.labelSize, 10, 4, 1, 12)
         self.labelSize.setLabel( str(self.screenx) + ' X ' + str(self.screeny) )
 
+        # test sur les listes
+        self.image_list_focus = self.image_dir + '/MenuItemFO.png'        # Drawing myself from an original pyXBMCt
+
+        self.listeTest = pyxbmct.List(buttonFocusTexture=self.image_list_focus, _itemHeight=30)
+        self.placeControl(control=self.listeTest,
+                          row=NEUF // 2,
+                          column=(SEIZE // 2),
+                          rowspan=20,
+                          columnspan=20)
+        self.listeTest.addItem('test1')
+        self.listeTest.addItem('test2')
+        self.listeTest.addItem('test3')
+
+        self.label_liste = pyxbmct.Label('')
+
+        self.setFocus(self.listeTest)
+        self.placeControl(self.label_liste, NEUF - 3, SEIZE // 2, 3, 20)
+        self.label_liste.setLabel('Wait')
+
+        self.connect(self.listeTest, self.nav_from_listeTest)
+
+    def nav_from_listeTest(self):
+        self.item = self.listeTest.getListItem(self.listeTest.getSelectedPosition()).getLabel()
+        xbmc.log('item : ' + self.item, xbmc.LOGNOTICE)
+        self.label_liste.setLabel(self.item)
+
+
     def quit(self):
         xbmc.log('quit asked - Exit Window .', xbmc.LOGNOTICE)
         line1 = " Do you want to exit this Window 4 ? "
@@ -782,7 +888,7 @@ class Fenetre4(pyxbmct.BlankFullWindow):
             self.promptVolume()
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F 4 ' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
 
@@ -826,6 +932,8 @@ class Fenetre5(pyxbmctExtended.BackgroundDialogWindow):
         xbmc.log('Size of Fenetre 5 set to : ' + str(self.screenx) + ' x ' + str(self.screeny), xbmc.LOGNOTICE)
 
         self.image_dir = ARTWORK    # path to pictures used in the program
+        
+
         # print a picture
         self.cover_jpg = self.image_dir + '/music.png'      # pour le démarrage then updated
         self.pochette = pyxbmct.Image(self.cover_jpg)
@@ -840,6 +948,33 @@ class Fenetre5(pyxbmctExtended.BackgroundDialogWindow):
         self.labelSize = pyxbmct.Label('')
         self.placeControl(self.labelSize, 10, 4, 1, 12)
         self.labelSize.setLabel( str(self.screenx) + ' X ' + str(self.screeny) )
+        
+        # test sur les listes
+        self.image_list_focus = self.image_dir + '/MenuItemFO.png'        # Drawing myself from an original pyXBMCt
+
+        self.listeTest = pyxbmct.List(buttonFocusTexture=self.image_list_focus, _itemHeight=30)
+        self.placeControl(control=self.listeTest,
+                          row=NEUF // 2,
+                          column=(SEIZE // 2),
+                          rowspan=20,
+                          columnspan=20)
+        self.listeTest.addItem('test1')
+        self.listeTest.addItem('test2')
+        self.listeTest.addItem('test3')
+        
+        self.label_liste = pyxbmct.Label('')
+        
+
+        self.setFocus(self.listeTest)
+        self.placeControl(self.label_liste, NEUF - 3 , SEIZE // 2 , 3  , 20 )
+        self.label_liste.setLabel('Wait')
+
+        self.connect(self.listeTest, self.nav_from_listeTest)
+
+    def nav_from_listeTest(self):
+        self.item = self.listeTest.getListItem(self.listeTest.getSelectedPosition()).getLabel()
+        xbmc.log('item : ' + self.item, xbmc.LOGNOTICE)
+        self.label_liste.setLabel(self.item)
 
     def quit(self):
         xbmc.log('quit asked - Exit Window .', xbmc.LOGNOTICE)
@@ -875,9 +1010,11 @@ class Fenetre5(pyxbmctExtended.BackgroundDialogWindow):
 
         elif action == ACTION_VOLUME_DOWN:  # it's the volume key Vol-  on my remote
             self.promptVolume()
-
+        # workaround because connect function didn't work but with version 1.3.1 pyxbmct it's ok
+        #elif action == ACTION_SELECT_ITEM:
+        #    self.nav_from_listeTest()
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F 5 ' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
 
@@ -893,12 +1030,12 @@ class Fenetre5(pyxbmctExtended.BackgroundDialogWindow):
 
 
 class Fenetre6(pyxbmctExtended.BackgroundFullWindow):
-    '''BackgroundFullWindow and BackgroundDialogWindow doesn't have an header
-        like BlankFullWindow and BlankDialogWindow.
-        BackgroundFullWindow have a black background beyond the window
-        so we could not see the parent Window and inside itself it have a different background fix by skin  (main_bg_img)
-        unlike BlankFullWindow
-        This BackgroundFullWindow, it is an extension of the original pyxbmct
+    '''BackgroundFullWindow and BackgroundDialogWindow have not an header
+        like BlankFullWindow and BlankDialogWindow
+        BackgroundDialogWindow have a transparent background beyond the self.window
+        so we see the parent Window but inside itself it have a background fix by skin (main_bg_img)
+        unlike BlankDialogWindow (reminder all is transparent)
+        BackgroundDialogWindow, it is an extended class of the pyxbmct framework
     '''
 
     def __init__(self, *args):
@@ -922,6 +1059,7 @@ class Fenetre6(pyxbmctExtended.BackgroundFullWindow):
         xbmc.log('Size of Fenetre 6 set to : ' + str(self.screenx) + ' x ' + str(self.screeny), xbmc.LOGNOTICE)
 
         self.image_dir = ARTWORK  # path to pictures used in the program
+
         # print a picture
         self.cover_jpg = self.image_dir + '/music.png'  # pour le démarrage then updated
         self.pochette = pyxbmct.Image(self.cover_jpg)
@@ -935,7 +1073,33 @@ class Fenetre6(pyxbmctExtended.BackgroundFullWindow):
 
         self.labelSize = pyxbmct.Label('')
         self.placeControl(self.labelSize, 10, 4, 1, 12)
-        self.labelSize.setLabel( str(self.screenx) + ' X ' + str(self.screeny))
+        self.labelSize.setLabel(str(self.screenx) + ' X ' + str(self.screeny))
+
+        # test sur les listes
+        self.image_list_focus = self.image_dir + '/MenuItemFO.png'  # Drawing myself from an original pyXBMCt
+
+        self.listeTest = pyxbmct.List(buttonFocusTexture=self.image_list_focus, _itemHeight=30)
+        self.placeControl(control=self.listeTest,
+                          row=NEUF // 2,
+                          column=(SEIZE // 2),
+                          rowspan=20,
+                          columnspan=20)
+        self.listeTest.addItem('test1')
+        self.listeTest.addItem('test2')
+        self.listeTest.addItem('test3')
+
+        self.label_liste = pyxbmct.Label('')
+
+        self.setFocus(self.listeTest)
+        self.placeControl(self.label_liste, NEUF - 3, SEIZE // 2, 3, 20)
+        self.label_liste.setLabel('Wait')
+
+        self.connect(self.listeTest, self.nav_from_listeTest)
+
+    def nav_from_listeTest(self):
+        self.item = self.listeTest.getListItem(self.listeTest.getSelectedPosition()).getLabel()
+        xbmc.log('item : ' + self.item, xbmc.LOGNOTICE)
+        self.label_liste.setLabel(self.item)
 
     def quit(self):
         xbmc.log('quit asked - Exit Window .', xbmc.LOGNOTICE)
@@ -947,6 +1111,13 @@ class Fenetre6(pyxbmctExtended.BackgroundFullWindow):
         else:
             pass
 
+        #self.connect(ACTION_PREVIOUS_MENU, self.quit)
+        #self.connect(pyxbmct.ACTION_NAV_BACK, self.quit)
+        #self.connect(ACTION_CONTEXT_MENU, self.promptContextMenu)
+        #self.connect(ACTION_VOLUME_UP, self.promptVolume)
+        #self.connect(ACTION_VOLUME_DOWN, self.promptVolume)
+        #self.connect(self.listeTest, self.nav_from_listeTest)
+
     def onAction(self, action):
         """
         Catch button actions.
@@ -954,30 +1125,30 @@ class Fenetre6(pyxbmctExtended.BackgroundFullWindow):
         ``action`` is an instance of :class:`xbmcgui.Action` class.
         """
         if action == ACTION_PREVIOUS_MENU:
-            xbmc.log('Action Previous_menu' , xbmc.LOGNOTICE)
+            xbmc.log('Action Previous_menu', xbmc.LOGNOTICE)
             self.quit()
 
         elif action == ACTION_NAV_BACK:
-            xbmc.log('Action nav_back' , xbmc.LOGNOTICE)
+            xbmc.log('Action nav_back', xbmc.LOGNOTICE)
             self.quit()
 
-        elif action == xbmcgui.ACTION_CONTEXT_MENU:     # it's a strange icon key on my remote
+        elif action == xbmcgui.ACTION_CONTEXT_MENU:  # it's a strange icon key on my remote
             xbmc.log('Action ContextMenu', xbmc.LOGNOTICE)
             self.flagContextMenu = True
             self.promptContextMenu()
 
-        elif action == ACTION_VOLUME_UP:    # it's the volume key Vol+  on my remote
+        elif action == ACTION_VOLUME_UP:  # it's the volume key Vol+  on my remote
             self.promptVolume()
 
         elif action == ACTION_VOLUME_DOWN:  # it's the volume key Vol-  on my remote
             self.promptVolume()
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F 6 ' + repr(action), xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
     def promptVolume(self):
-        volumeFrame =  VolumeFrameChild()
+        volumeFrame = VolumeFrameChild()
         volumeFrame.doModal()
         del volumeFrame
 
@@ -985,6 +1156,7 @@ class Fenetre6(pyxbmctExtended.BackgroundFullWindow):
         contextMenuFrame = ContextMenuFrameChild('ContextMenu Key pressed in Window 6')
         contextMenuFrame.doModal()
         del contextMenuFrame
+
 
 
 
@@ -1178,7 +1350,7 @@ class VolumeFrameChild(pyxbmct.BlankDialogWindow):
             self.setVolume('DOWN')
 
         else:
-            xbmc.log('else condition onAction ' + repr(action)  , xbmc.LOGNOTICE)
+            xbmc.log('else condition onAction F vol ' + repr(action)  , xbmc.LOGNOTICE)
             self._executeConnected(action, self.actions_connected)
 
     def promptContextMenu(self):
