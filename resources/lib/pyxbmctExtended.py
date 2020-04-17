@@ -73,13 +73,7 @@ class AddonWindowWithoutTitle(pyxbmct.AbstractWindow):
         super(AddonWindowWithoutTitle, self).__init__()
         self._setFrame()
 
-    def onControl(self, control):
-        """
-        Catch activated controls.
-        :param control: is an instance of :class:`xbmcgui.Control` class.
-        """
-        # type: (xbmcgui.Control) -> None
-        super(AddonWindowWithoutTitle, self).onControl(control)
+
 
     def _setFrame(self):
         """
@@ -146,51 +140,24 @@ class AddonWindowWithoutTitle(pyxbmct.AbstractWindow):
         self.background.setWidth(self._width)
         self.background.setHeight(self._height)
 
-        # self.window_close_button.setPosition(self.x + self._width - skin.close_btn_x_offset,
+        #self.window_close_button.setPosition(self.x + self._width - skin.close_btn_x_offset,
         #                                     self.y + skin.y_margin + skin.close_btn_y_offset)
 
-    def _raiseSetGeometryNotCalledError(self):
+    def _setGrid(self):
         """
-        Helper method that raises an AddonWindowError  that states that setGeometry needs to be called. Used by methods
-        that will fail if the window geometry is not defined.
-        :raises AddonWindowError
+        Set window grid layout of rows * columns.
+
+        This is a helper method not to be called directly.
         """
-        # type: () -> None
-        raise pyxbmct.AddonWindowError('Window geometry is not defined! Call setGeometry first.')
+        self.grid_x = self.x + skin.x_margin + self.win_padding
+        self.grid_y = self.y + skin.y_margin + skin.title_back_y_shift + skin.header_height + self.win_padding
+        self.tile_width = (self.width - 2 * (skin.x_margin + self.win_padding)) // self.columns
+        self.tile_height = ((self.height - skin.header_height - skin.title_back_y_shift -
+                             2 * (skin.y_margin + self.win_padding)) // self.rows)
 
-    def getGridX(self):
-        # type: () -> int
-        try:
-            val = self.x + self.win_padding
-        except AttributeError:
-            self._raiseSetGeometryNotCalledError()
-        return val + skin.x_margin
 
-    def getGridY(self):
-        # type: () -> int
-        try:
-            val = self.y + self.win_padding
-        except AttributeError:
-            self._raiseSetGeometryNotCalledError()
-        return val + skin.y_margin
 
-    def getGridWidth(self):
-        # type: () -> int
-        try:
-            val = self._width - 2 * self.win_padding
-        except AttributeError:
-            self._raiseSetGeometryNotCalledError()
-        return val - 2 * skin.x_margin
-
-    def getGridHeight(self):
-        # type: () -> int
-        try:
-            val = self._height - 2 * self.win_padding
-        except AttributeError:
-            self._raiseSetGeometryNotCalledError()
-        return val
-
-class BackgroundFullWindow(AddonWindowWithoutTitle, xbmcgui.Window):
+class BackgroundFullWindow(AddonWindowWithoutTitle, pyxbmct.FullWindowMixin):
     """
     Same as AddonFullWindow(title='') without Title and title-bar
     Addon UI container with a solid background.
@@ -226,10 +193,12 @@ class BackgroundFullWindow(AddonWindowWithoutTitle, xbmcgui.Window):
             self.setBackground('/images/bacground.png')
         """
         # type: (str) -> None
-        self.background_img.setImage(image)
+        #self.background_img.setImage(image)
+        self.main_bg.setImage(image)
 
 
-class BackgroundDialogWindow(AddonWindowWithoutTitle, xbmcgui.WindowDialog):
+
+class BackgroundDialogWindow(AddonWindowWithoutTitle, pyxbmct.DialogWindowMixin):
     """
     cpoy/paste of AddonDialogWindow(title='')
 
@@ -244,3 +213,4 @@ class BackgroundDialogWindow(AddonWindowWithoutTitle, xbmcgui.WindowDialog):
         addon.setGeometry(400, 300, 4, 3)
         addon.doModal()
     """
+    pass
