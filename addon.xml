@@ -2,7 +2,7 @@
 
 <addon id="script.pyxbmct_in_action"
 	   name="Demo_pyxbmct, "
-	   version="0.0.001"
+	   version="0.0.002"
 	   provider-name="rondrach">
 
 	<requires>
